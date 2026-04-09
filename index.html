@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartFokontany 2035</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <i class="fas fa-home"></i>
+            SmartFokontany 2035
+        </div>
+        <button class="hamburger" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
+    </header>
+
+    <!-- Sidebar Menu -->
+    <nav class="sidebar" id="sidebar">
+        <a href="#" class="menu-item active" onclick="showPage('dashboard')">
+            <i class="fas fa-tachometer-alt"></i>Dashboard
+        </a>
+        <a href="#" class="menu-item" onclick="showPage('habitants')">
+            <i class="fas fa-users"></i>Habitants
+        </a>
+        <a href="#" class="menu-item" onclick="showPage('signalements')">
+            <i class="fas fa-exclamation-triangle"></i>Signalements
+        </a>
+        <a href="#" class="menu-item" onclick="showPage('paiements')">
+            <i class="fas fa-credit-card"></i>Paiements
+        </a>
+        <a href="#" class="menu-item" onclick="showPage('optimisations')">
+            <i class="fas fa-calculator"></i>Optimisations
+        </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Dashboard Page -->
+        <section id="dashboard-page" class="page active">
+            <div class="card">
+                <h2><i class="fas fa-tachometer-alt"></i> Dashboard</h2>
+                <button class="btn btn-primary" onclick="consulterDashboard()">
+                    <i class="fas fa-sync"></i> Charger Dashboard
+                </button>
+                <div id="dashboard" class="dashboard-grid"></div>
+            </div>
+        </section>
+
+        <!-- Habitants Page -->
+        <section id="habitants-page" class="page">
+            <div class="card">
+                <h2><i class="fas fa-user-plus"></i> Ajouter Habitant</h2>
+                <div class="form-group">
+                    <label for="nom">Nom:</label>
+                    <input type="text" id="nom" placeholder="Nom">
+                </div>
+                <div class="form-group">
+                    <label for="age">Âge:</label>
+                    <input type="number" id="age" placeholder="Âge">
+                </div>
+                <button class="btn btn-success" onclick="ajouterHabitant()">
+                    <i class="fas fa-plus"></i> Ajouter
+                </button>
+            </div>
+            <div class="card">
+                <h2><i class="fas fa-list"></i> Liste & Gestion Habitants</h2>
+                <button class="btn btn-primary" onclick="chargerHabitants()">
+                    <i class="fas fa-sync"></i> Afficher
+                </button>
+                <ul id="listeHabitants"></ul>
+                <div style="margin-top: 2rem;">
+                    <div class="form-group">
+                        <label for="editId">ID Habitant:</label>
+                        <input type="number" id="editId" placeholder="ID habitant">
+                    </div>
+                    <div class="form-group">
+                        <label for="editNom">Nouveau Nom:</label>
+                        <input type="text" id="editNom" placeholder="Nom">
+                    </div>
+                    <div class="form-group">
+                        <label for="editAge">Nouvel Âge:</label>
+                        <input type="number" id="editAge" placeholder="Âge">
+                    </div>
+                    <button class="btn btn-primary" onclick="updateHabitant()">
+                        <i class="fas fa-edit"></i> Modifier
+                    </button>
+                    <button class="btn btn-danger" onclick="deleteHabitant()">
+                        <i class="fas fa-trash"></i> Supprimer
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Signalements Page -->
+        <section id="signalements-page" class="page">
+            <div class="card">
+                <h2><i class="fas fa-plus-circle"></i> Ajouter Signalement</h2>
+                <div class="form-group">
+                    <label for="type">Type:</label>
+                    <input type="text" id="type" placeholder="Type">
+                </div>
+                <div class="form-group">
+                    <label for="gravite">Gravité (1-10):</label>
+                    <input type="number" id="gravite" min="1" max="10" placeholder="Gravité">
+                </div>
+                <button class="btn btn-success" onclick="ajouterSignalement()">
+                    <i class="fas fa-plus"></i> Ajouter
+                </button>
+            </div>
+            <div class="card">
+                <h2><i class="fas fa-star"></i> Signalement Prioritaire</h2>
+                <button class="btn btn-primary" onclick="voirPrioritaire()">
+                    <i class="fas fa-eye"></i> Voir
+                </button>
+                <p id="prioritaire" style="margin-top: 1rem; font-size: 1.2rem; font-weight: bold; color: #dc3545;"></p>
+            </div>
+            <div class="card">
+                <h2><i class="fas fa-list-ul"></i> Liste Signalements</h2>
+                <button class="btn btn-primary" onclick="prioriserSignalements()">
+                    <i class="fas fa-sync"></i> Charger Liste
+                </button>
+                <ul id="listeSignalements"></ul>
+            </div>
+        </section>
+
+        <!-- Paiements Page -->
+        <section id="paiements-page" class="page">
+            <div class="card">
+                <h2><i class="fas fa-credit-card"></i> Valider Paiement</h2>
+                <div class="form-group">
+                    <label for="payHabitantId">ID Habitant:</label>
+                    <input type="number" id="payHabitantId" placeholder="ID habitant">
+                </div>
+                <div class="form-group">
+                    <label for="payMontant">Montant (Ar):</label>
+                    <input type="number" step="0.01" id="payMontant" placeholder="Montant">
+                </div>
+                <div class="form-group">
+                    <label for="payRaison">Raison:</label>
+                    <input type="text" id="payRaison" placeholder="Raison">
+                </div>
+                <button class="btn btn-success" onclick="validerPaiement()">
+                    <i class="fas fa-check"></i> Valider Paiement
+                </button>
+            </div>
+        </section>
+
+        <!-- Optimisations Page -->
+        <section id="optimisations-page" class="page">
+            <div class="card">
+                <h2><i class="fas fa-route"></i> Optimiser Trajets (Dijkstra)</h2>
+                <div class="form-group">
+                    <label for="graph">Graphe JSON:</label>
+                    <textarea id="graph" placeholder='{"A":{"B":2,"C":5},"B":{"C":1}}' rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="start">Noeud de départ:</label>
+                    <input type="text" id="start" placeholder="ex: A">
+                </div>
+                <button class="btn btn-primary" onclick="optimiserTrajets()">
+                    <i class="fas fa-calculator"></i> Optimiser
+                </button>
+                <div id="trajetResult"></div>
+            </div>
+            <div class="card">
+                <h2><i class="fas fa-coins"></i> Gérer Budget (Knapsack)</h2>
+                <div class="form-group">
+                    <label for="items">Items JSON:</label>
+                    <textarea id="items" placeholder='[{"nom":"Projet1","valeur":10,"poids":1},{"nom":"Projet2","valeur":20,"poids":3}]' rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="budgetVal">Budget max:</label>
+                    <input type="number" id="budgetVal" placeholder="Budget max">
+                </div>
+                <button class="btn btn-primary" onclick="gererBudget()">
+                    <i class="fas fa-rocket"></i> Optimiser
+                </button>
+                <div id="budgetResult"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
